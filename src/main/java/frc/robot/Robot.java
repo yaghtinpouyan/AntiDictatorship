@@ -2,19 +2,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import frc.robot.subsystems.Operatorinterface;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot{
   private Command m_autonomousCommand;
   private final RobotContainer m_robotContainer;
+  private Operatorinterface oi;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
+    oi = new Operatorinterface();
     }
 
   
@@ -56,8 +55,8 @@ public class Robot extends LoggedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
-
+  public void teleopPeriodic() {
+  }
   @Override
   public void teleopExit() {}
 
@@ -67,8 +66,15 @@ public class Robot extends LoggedRobot {
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    
+  }
 
   @Override
   public void testExit() {}
+
+  @Override
+  public void simulationPeriodic() {
+    CommandScheduler.getInstance().run();
+  }
 }
