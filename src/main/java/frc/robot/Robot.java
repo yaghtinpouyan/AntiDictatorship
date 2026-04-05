@@ -14,11 +14,10 @@ public class Robot extends LoggedRobot {
   private final RobotContainer m_robotContainer;
 
   public Robot() {
-    
+    m_robotContainer = new RobotContainer();
     }
 
   
-  }
 
   @Override
   public void robotPeriodic() {
