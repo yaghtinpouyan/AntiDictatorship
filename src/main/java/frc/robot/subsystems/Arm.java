@@ -25,7 +25,7 @@ public class Arm extends SubsystemBase {
       ArmMotor.set(0.7);
     }
     else if(MathUtil.applyDeadband(joyRight , 0.1 ) < 0 ){
-      ArmMotor.set(0.7);
+      ArmMotor.set(-7);
     }
     else{
       ArmMotor.set(0);
