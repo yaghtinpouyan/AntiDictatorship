@@ -1,7 +1,7 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public final class Constants {
+public final class Constants extends SubsystemBase {
 
 }

@@ -20,7 +20,7 @@ public class Operatorinterface extends SubsystemBase{
     }
 
      public void updateArm(){
-        arm.setArmMotor(controller1.getRightY());
+        arm.setArmMotor(controller1.getAButton(), controller1.getBButton());
 
     }
 

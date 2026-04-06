@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
@@ -20,16 +20,20 @@ public class Arm extends SubsystemBase {
   public Arm(){
     
   }
-   public void setArmMotor(double joyRight){
-    if(MathUtil.applyDeadband(joyRight , 0.1 ) > 0 ){
+   public void setArmMotor(Boolean aButton, Boolean bButton){
+    if(aButton == true){
       ArmMotor.set(0.7);
     }
-    else if(MathUtil.applyDeadband(joyRight , 0.1 ) < 0 ){
-      ArmMotor.set(-7);
+    else if(bButton == true){
+      ArmMotor.set(-0.7);
     }
     else{
       ArmMotor.set(0);
     }
+
+  SmartDashboard.putBoolean("we are climbing up", aButton);
+  SmartDashboard.putBoolean("we are climbing down", bButton);
+
   }
 
-} //:p
+}
