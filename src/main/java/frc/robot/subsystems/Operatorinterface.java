@@ -7,6 +7,7 @@ public class Operatorinterface extends SubsystemBase{
 
     private Tank drive = Tank.getInstance();
     private Arm arm = Arm.getInstance();
+    private Intake intake = Intake.getInstance();
     private XboxController controller1 = new XboxController(0);
     public static Operatorinterface getInstance(){ 
         if (oi == null){
@@ -23,10 +24,15 @@ public class Operatorinterface extends SubsystemBase{
         arm.setArmMotor(controller1.getAButton(), controller1.getBButton());
 
     }
+     public void updateIntake(){
+        intake.setIntakeMotor(controller1.getXButton());
+
+    }
 
     @Override
     public void periodic() {
         updateDrive();
         updateArm();
+        updateIntake();
     }
 }
