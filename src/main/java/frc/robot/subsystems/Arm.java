@@ -38,14 +38,14 @@ public class Arm extends SubsystemBase {
   public Arm(){
     encoder = ArmMotor.getEncoder();
     pidController = ArmMotor.getClosedLoopController();
-.
+
     SparkMaxConfig config = new SparkMaxConfig();
     config.closedLoop
       .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
       .p(kP)
       .i(kI)
       .d(kD)
-      .outputRange(-0.5, 0.5);
+      .outputRange(-0.7, 0.7);
 
     ArmMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     encoder.setPosition(0);
