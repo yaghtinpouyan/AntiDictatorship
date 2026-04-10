@@ -14,21 +14,23 @@ public class Intake extends SubsystemBase {
         if (intake == null){
             intake = new Intake();
         }
-    return intake;
+        return intake;
     }
 
-  public Intake(){
+    public Intake(){
     
-  }
-   public void setIntakeMotor(Boolean xButton){
-        if(xButton == true){
-            intakeMotor.set(0.7);
-        }
-        else{
-            intakeMotor.set(0);
-        }
+    }
 
-    SmartDashboard.putBoolean("we are intaking", xButton);
+    public void run() {
+        intakeMotor.set(0.7);
+    }
 
-  }
+    public void stop() {
+        intakeMotor.set(0);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("we are intaking", intakeMotor.get() != 0);
+    }
 }
