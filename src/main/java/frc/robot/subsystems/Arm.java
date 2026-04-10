@@ -22,6 +22,7 @@ public class Arm extends SubsystemBase {
 
   private static final double Position_Up =10.0;
   private static final double Position_Defualt =0.0;
+  private double currentTarget = Position_Defualt;
 
   private static final double kP = 0.1;
   private static final double kI = 0.0;
@@ -50,17 +51,21 @@ public class Arm extends SubsystemBase {
     ArmMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     encoder.setPosition(0);
   }
-   public void setArmMotor(Boolean aButton, Boolean bButton){
-    if(aButton){
-      pidController.setSetpoint(Position_Up, ControlType.kPosition);
-    }
-    else if(bButton){
-      pidController.setSetpoint(Position_Defualt, ControlType.kPosition);
-    }
 
-  SmartDashboard.putNumber("Arm Target", aButton ? Position_Up: bButton ? Position_Defualt:-1);
-  SmartDashboard.putNumber("Arm Position", encoder.getPosition());
+  public void run(){
+    currentTarget = Position_Up;
+    pidController.setSetpoint(Position_Up, ControlType.kPosition);
+  }
 
+  public void down(){
+    currentTarget = Position_Defualt;
+    pidController.setSetpoint(Position_Defualt, ControlType.kPosition);
+  }
+
+  @Override
+  public void periodic() {
+      SmartDashboard.putNumber("Arm Target", currentTarget);
+      SmartDashboard.putNumber("Arm Position", encoder.getPosition());
   }
 
 }
