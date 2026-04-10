@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Tank extends SubsystemBase {
     
+  double LFMValue;
+  double RFMValue;
+
    private SparkMax leftFrontMotor;
    private SparkMax rightFrontMotor;
    private SparkMax leftBackMotor;
@@ -46,8 +49,7 @@ public class Tank extends SubsystemBase {
   }
 
   public void manualDrive(double joyright, double joyleft){
-        double LFMValue;
-        double RFMValue;
+
 
        if(Math.abs(joyleft) > 0.1 || Math.abs(joyright) > 0.1) {
           LFMValue = (joyleft + joyright)/2;
@@ -61,9 +63,13 @@ public class Tank extends SubsystemBase {
           leftFrontMotor.set(LFMValue);
           rightFrontMotor.set(RFMValue);
         }
-
-        SmartDashboard.putNumber("Right Motor is ", RFMValue);
-        SmartDashboard.putNumber("Left Motor is ", LFMValue);
     }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("Right Motor is ", RFMValue);
+    SmartDashboard.putNumber("Left Motor is ", LFMValue); 
+  }
+
     
 }
