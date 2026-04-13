@@ -5,6 +5,8 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -50,20 +52,13 @@ public class Tank extends SubsystemBase {
 
   public void manualDrive(double joyright, double joyleft){
 
-
-       if(Math.abs(joyleft) > 0.1 || Math.abs(joyright) > 0.1) {
-          LFMValue = (joyleft + joyright)/2;
-          RFMValue = (joyleft - joyright)/2;
-          leftFrontMotor.set(LFMValue);
-          rightFrontMotor.set(RFMValue);
-        }
-        else {
-          LFMValue = 0;
-          RFMValue = 0;
-          leftFrontMotor.set(LFMValue);
-          rightFrontMotor.set(RFMValue);
-        }
-    }
+    joyleft = MathUtil.applyDeadband(joyleft, 0.1);
+    joyright = MathUtil.applyDeadband(joyright, 0.1);
+    LFMValue = MathUtil.clamp((joyleft + joyright), -1, 1);
+    RFMValue = MathUtil.clamp((joyleft - joyright), -1, 1);
+    leftFrontMotor.set(LFMValue);
+    rightFrontMotor.set(RFMValue);
+  }
 
   @Override
   public void periodic() {
