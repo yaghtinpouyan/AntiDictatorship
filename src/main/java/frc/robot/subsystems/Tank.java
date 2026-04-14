@@ -51,11 +51,19 @@ public class Tank extends SubsystemBase {
   }
 
   public void manualDrive(double joyright, double joyleft){
-
+    
     joyleft = MathUtil.applyDeadband(joyleft, 0.1);
     joyright = MathUtil.applyDeadband(joyright, 0.1);
-    LFMValue = MathUtil.clamp((joyleft + joyright), -1, 1);
-    RFMValue = MathUtil.clamp((joyleft - joyright), -1, 1);
+
+    LFMValue = (joyleft - joyright);
+    RFMValue = (joyleft + joyright);
+
+    double max = Math.max(Math.abs(LFMValue), Math.abs(RFMValue));
+    if (max > 1.0) {
+        LFMValue /= max;
+        RFMValue /= max;
+    }
+
     leftFrontMotor.set(LFMValue);
     rightFrontMotor.set(RFMValue);
   }
